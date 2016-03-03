@@ -14,12 +14,13 @@ class LG3641BH
 	public:
 		LG3641BH(int pins[12], char type);
 		void begin(void);
+		int number(int num);
 		int writeNumber(int num, int pos);
-		int writeLong(float fl);
+		int writeLong(float num, int sec);
 	private:
 		int _pins[12];
-		int _a;
-		int _i;
+		int _state0;
+		int _state1;
 };
 
 #endif

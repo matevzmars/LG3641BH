@@ -214,30 +214,65 @@ int LG3641BH::number(int num){
 }
 
 int LG3641BH::writeNumber(int num, int pos){
-  if(pos<1 || pos>4) return 2;
-  
-  int a;
-  
-  switch(pos){
-    case 1:
-      digitalWrite(D1,HIGH);
-      a=number(num);
-      digitalWrite(D1,LOW);
-      return a;
-    case 2:
-      digitalWrite(D2,HIGH);
-      a=number(num);
-      digitalWrite(D2,LOW);
-      return a;
-    case 3:
-      digitalWrite(D3,HIGH);
-      a=number(num);
-      digitalWrite(D3,LOW);
-      return a;
-    case 4:
-      digitalWrite(D4,HIGH);
-      a=number(num);
-      digitalWrite(D4,LOW);
-      return a;      
-  }  
+	if(pos<1 || pos>4) return 2;
+	  
+	int a;
+	  
+	switch(pos){
+		case 1:
+			digitalWrite(_pins[8],_state0);
+			a=number(num);
+			digitalWrite(_pins[8],_state1);
+			return a;
+		case 2:
+			digitalWrite(_pins[9],_state0);
+			a=number(num);
+			digitalWrite(_pins[9],_state1);
+			return a;
+		case 3:
+			digitalWrite(_pins[10],_state0);
+			a=number(num);
+			digitalWrite(_pins[10],_state1);
+			return a;
+		case 4:
+			digitalWrite(_pins[11],_state0);
+			a=number(num);
+			digitalWrite(_pins[11],_state1);
+			return a;      
+	}  
+}
+
+int writeLong(float num, int sec){
+	if(num<0 || num>9999) return 3;
+	
+	float temp=num;
+	
+	for(int j=0;j<microsecondsToClockCycles(1000)*sec;j++){
+		num=temp;
+
+		if(0<=num && num<10){
+			num=num*1000;
+			writeNumber(10,1);
+		}
+		else if(10<=num && num<100){
+			num=num*100;
+			writeNumber(10,2);
+		}
+		else if(100<=num && num<1000){
+			num=num*10;
+			writeNumber(10,3);
+		}
+		else if(1000<=num){
+			num=num*1;
+		}
+		  
+		int a = 0;
+		a= (int)(num);
+		  
+		for(int i=4;i>0;i--){
+			writeNumber(a%10,i);
+			a=(a-a%10)/10;
+		}
+		return 4;
+	}
 }

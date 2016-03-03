@@ -1,0 +1,25 @@
+/* 
+LG3641BH.h - Library for LG3641BH 4x7 segment display
+Created by Matevž Marš, march 2016
+Released into the public domain
+*/
+
+#ifndef LG3641BH_h
+#define LG3641BH_h
+
+#include "Arduino.h"
+
+class LG3641BH
+{
+	public:
+		LG3641BH(int pins[12], char type);
+		void begin(void);
+		int writeNumber(int num, int pos);
+		int writeLong(float fl);
+	private:
+		int _pins[12];
+		int _a;
+		int _i;
+};
+
+#endif

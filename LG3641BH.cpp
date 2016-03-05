@@ -37,7 +37,7 @@ void LG3641BH::begin(void){
 }
 
 int LG3641BH::number(int num){
-	if(num<0 || num>10) return 0; //n=10 corresponds dot segment
+	if(num<0 || num>11) return 0; //n=10 corresponds dot segment
 	
 	switch(num){
 		case 0:
@@ -329,13 +329,18 @@ int LG3641BH::writeNumber(int num, int pos){
 int LG3641BH::writeFloat(float num, int sec){
 	if(num<-999 || num>9999) return 3;
 	
+	int k=0;
 	float temp=num;
+	
 	
 	for(int j=0;j<50*sec;j++){
 		num=temp;
-	
+		k=0;
+		
+		if(num<0) k=1;
+		
 		if(0<=num && num<10){
-			num=num*100*m;
+			num=num*1000;
 			writeNumber(10,1); //write dot behind first digit
 		}
 		else if(10<=num && num<100){
@@ -367,7 +372,7 @@ int LG3641BH::writeFloat(float num, int sec){
 		int a = 0;
 		a= (int)(num);
 		  
-		for(int i=4;i>0;i--){
+		for(int i=4;i>k;i--){
 			writeNumber(a%10,i);
 			a=(a-a%10)/10;
 		}
@@ -379,16 +384,19 @@ int LG3641BH::writeInt(int num, int sec){
 	if(num<-999 || num>9999) return 3;
 	
 	int temp=num;	
+	int k=0;
 	
 	for(int j=0;j<50*sec;j++){
 		num=temp;
+		k=0;
 		
 		if(num<0){
+			k=1;		
 			num=num*(-1);
 			writeNumber(11,1); //writes minus sign on first digit
 		}
   
-		for(int i=4;i>0;i--){
+		for(int i=4;i>k;i--){
 			writeNumber(num%10,i);
 			num=(num-num%10)/10;
 		}

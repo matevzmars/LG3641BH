@@ -1,5 +1,3 @@
-#include <LG3641BH.h>
-
 /*
 Arduino LG3641BH example
 
@@ -9,7 +7,7 @@ screen. Number is sent to Arduino over serial communication.
 Written by Matevž Marš, march 2016
 */
 
-//#include "LG3641BH.h"
+#include "LG3641BH.h"
 
 
 #define sec 5 //define how long should numbers be visible
@@ -31,18 +29,19 @@ LG3641BH pin |  Arduino pin
           D4 |  8
 */
 
-LG3641BH screen(pins,'B');
+LG3641BH screen(pins,'B'); //I use B version of LG3641BH
 
 void setup() {
   Serial.begin(9600);
   
-  screen.begin(); //initialize pins
+  screen.begin(); //initialize pins and screen
   Serial.println("LG3641BH initialized");
 }
 
+
 void loop() {
   if(Serial.available()>0){
-    screen.writeLong(Serial.parseFloat(),sec);  
+    screen.writeUFloat(Serial.parseFloat(),sec);  
   }  
 
 }

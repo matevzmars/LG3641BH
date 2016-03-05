@@ -333,9 +333,9 @@ int LG3641BH::writeFloat(float num, int sec){
 	
 	for(int j=0;j<50*sec;j++){
 		num=temp;
-
+	
 		if(0<=num && num<10){
-			num=num*1000;
+			num=num*100*m;
 			writeNumber(10,1); //write dot behind first digit
 		}
 		else if(10<=num && num<100){
@@ -348,6 +348,20 @@ int LG3641BH::writeFloat(float num, int sec){
 		}
 		else if(1000<=num){
 			num=num*1;
+		}
+		else if(0>num && num>-10){
+			num=num*(-100);
+			writeNumber(11,1); //write minus sign on first digit
+			writeNumber(10,2); //write dot behind second digit
+		}
+		else if(-10>=num && num>-100){
+			num=num*(-10);
+			writeNumber(11,1); //write minus sign on first digit
+			writeNumber(10,3); //write dot behind third digit
+		}
+		else if(-100>=num && num>-1000){
+			num=num*(-1);
+			writeNumber(11,1); //write minus sign on first digit
 		}
 		  
 		int a = 0;

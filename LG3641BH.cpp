@@ -67,6 +67,23 @@ int LG3641BH::number(int num){
 			digitalWrite(_pins[2],_state1);
 			delayMicroseconds(numWait);
 			digitalWrite(_pins[2],_state0);
+			
+			//added for the same number duration
+			digitalWrite(_pins[0],_state0);
+			delayMicroseconds(numWait);
+			digitalWrite(_pins[0],_state0);
+			digitalWrite(_pins[0],_state0);
+			delayMicroseconds(numWait);
+			digitalWrite(_pins[0],_state0);
+			digitalWrite(_pins[0],_state0);
+			delayMicroseconds(numWait);
+			digitalWrite(_pins[0],_state0);
+			digitalWrite(_pins[0],_state0);
+			delayMicroseconds(numWait);
+			digitalWrite(_pins[0],_state0);
+			digitalWrite(_pins[0],_state0);
+			delayMicroseconds(numWait);
+			digitalWrite(_pins[0],_state0);
 			return 1;      
 		case 2:
 			digitalWrite(_pins[0],_state1);
@@ -84,6 +101,14 @@ int LG3641BH::number(int num){
 			digitalWrite(_pins[3],_state1);
 			delayMicroseconds(numWait);
 			digitalWrite(_pins[3],_state0);
+			
+			//added for the same number duration
+			digitalWrite(_pins[0],_state0);
+			delayMicroseconds(numWait);
+			digitalWrite(_pins[0],_state0);
+			digitalWrite(_pins[0],_state0);
+			delayMicroseconds(numWait);
+			digitalWrite(_pins[0],_state0);
 			return 1;
 		case 3:
 			digitalWrite(_pins[0],_state1);
@@ -101,6 +126,14 @@ int LG3641BH::number(int num){
 			digitalWrite(_pins[3],_state1);
 			delayMicroseconds(numWait);
 			digitalWrite(_pins[3],_state0);
+			
+			//added for the same number duration
+			digitalWrite(_pins[0],_state0);
+			delayMicroseconds(numWait);
+			digitalWrite(_pins[0],_state0);
+			digitalWrite(_pins[0],_state0);
+			delayMicroseconds(numWait);
+			digitalWrite(_pins[0],_state0);			
 			return 1;
 		case 4:
 			digitalWrite(_pins[5],_state1);
@@ -115,6 +148,17 @@ int LG3641BH::number(int num){
 			digitalWrite(_pins[2],_state1);
 			delayMicroseconds(numWait);
 			digitalWrite(_pins[2],_state0);
+			
+			//added for the same number duration
+			digitalWrite(_pins[0],_state0);
+			delayMicroseconds(numWait);
+			digitalWrite(_pins[0],_state0);
+			digitalWrite(_pins[0],_state0);
+			delayMicroseconds(numWait);
+			digitalWrite(_pins[0],_state0);
+			digitalWrite(_pins[0],_state0);
+			delayMicroseconds(numWait);
+			digitalWrite(_pins[0],_state0);			
 			return 1;
 		case 5:
 			digitalWrite(_pins[0],_state1);
@@ -132,6 +176,14 @@ int LG3641BH::number(int num){
 			digitalWrite(_pins[3],_state1);
 			delayMicroseconds(numWait);
 			digitalWrite(_pins[3],_state0);
+			
+			//added for the same number duration
+			digitalWrite(_pins[0],_state0);
+			delayMicroseconds(numWait);
+			digitalWrite(_pins[0],_state0);
+			digitalWrite(_pins[0],_state0);
+			delayMicroseconds(numWait);
+			digitalWrite(_pins[0],_state0);			
 			return 1;
 		case 6:
 			digitalWrite(_pins[0],_state1);
@@ -152,6 +204,11 @@ int LG3641BH::number(int num){
 			digitalWrite(_pins[4],_state1);
 			delayMicroseconds(numWait);
 			digitalWrite(_pins[4],_state0);
+			
+			//added for the same number duration
+			digitalWrite(_pins[0],_state0);
+			delayMicroseconds(numWait);
+			digitalWrite(_pins[0],_state0);		
 			return 1;
 		case 7:
 			digitalWrite(_pins[0],_state1);
@@ -163,6 +220,20 @@ int LG3641BH::number(int num){
 			digitalWrite(_pins[2],_state1);
 			delayMicroseconds(numWait);
 			digitalWrite(_pins[2],_state0);
+			
+			//added for the same number duration
+			digitalWrite(_pins[0],_state0);
+			delayMicroseconds(numWait);
+			digitalWrite(_pins[0],_state0);
+			digitalWrite(_pins[0],_state0);
+			delayMicroseconds(numWait);
+			digitalWrite(_pins[0],_state0);
+			digitalWrite(_pins[0],_state0);
+			delayMicroseconds(numWait);
+			digitalWrite(_pins[0],_state0);
+			digitalWrite(_pins[0],_state0);
+			delayMicroseconds(numWait);
+			digitalWrite(_pins[0],_state0);
 			return 1;
 		case 8:
 			digitalWrite(_pins[0],_state1);
@@ -206,6 +277,11 @@ int LG3641BH::number(int num){
 			digitalWrite(_pins[6],_state1);
 			delayMicroseconds(numWait);
 			digitalWrite(_pins[6],_state0);
+			
+			//added for the same number duration
+			digitalWrite(_pins[0],_state0);
+			delayMicroseconds(numWait);
+			digitalWrite(_pins[0],_state0);
 			return 1;
 		case 10:
 			digitalWrite(_pins[7],_state1);
@@ -245,12 +321,12 @@ int LG3641BH::writeNumber(int num, int pos){
 	}  
 }
 
-int LG3641BH::writeLong(float num, int sec){
+int LG3641BH::writeUFloat(float num, int sec){
 	if(num<0 || num>9999) return 3;
 	
 	float temp=num;
 	
-	for(int j=0;j<microsecondsToClockCycles(1000000)*sec;j++){
+	for(int j=0;j<50*sec;j++){
 		num=temp;
 
 		if(0<=num && num<10){
@@ -276,6 +352,6 @@ int LG3641BH::writeLong(float num, int sec){
 			writeNumber(a%10,i);
 			a=(a-a%10)/10;
 		}
-		return 4;
 	}
+	return 4;
 }

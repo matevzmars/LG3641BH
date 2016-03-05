@@ -16,10 +16,8 @@ class LG3641BH
 		void begin(void);
 		int number(int num);
 		int writeNumber(int num, int pos);
-		int writeUFloat(float num, int sec);
-		int writeSFloat(float num, int sec);
-		int writeUInt(float num, int sec);
-		int writeSInt(float num, int sec);
+		int writeFloat(float num, int sec);
+		int writeInt(float num, int sec);
 	private:
 		int _pins[12];
 		int _state0;

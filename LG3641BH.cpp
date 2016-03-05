@@ -287,7 +287,12 @@ int LG3641BH::number(int num){
 			digitalWrite(_pins[7],_state1);
 			delayMicroseconds(numWait);
 			digitalWrite(_pins[7],_state0);
-			return 1; 
+			return 1;
+		case 11:
+			digitalWrite(_pins[6],_state1);
+			delayMicroseconds(numWait);
+			digitalWrite(_pins[6],_state0);
+			return 1;			
 	}
 	
 }
@@ -321,8 +326,8 @@ int LG3641BH::writeNumber(int num, int pos){
 	}  
 }
 
-int LG3641BH::writeUFloat(float num, int sec){
-	if(num<0 || num>9999) return 3;
+int LG3641BH::writeFloat(float num, int sec){
+	if(num<-999 || num>9999) return 3;
 	
 	float temp=num;
 	
@@ -331,15 +336,15 @@ int LG3641BH::writeUFloat(float num, int sec){
 
 		if(0<=num && num<10){
 			num=num*1000;
-			writeNumber(10,1);
+			writeNumber(10,1); //write dot behind first digit
 		}
 		else if(10<=num && num<100){
 			num=num*100;
-			writeNumber(10,2);
+			writeNumber(10,2); //write dot behind second digit
 		}
 		else if(100<=num && num<1000){
 			num=num*10;
-			writeNumber(10,3);
+			writeNumber(10,3); //write dot behind third digit
 		}
 		else if(1000<=num){
 			num=num*1;
@@ -351,6 +356,27 @@ int LG3641BH::writeUFloat(float num, int sec){
 		for(int i=4;i>0;i--){
 			writeNumber(a%10,i);
 			a=(a-a%10)/10;
+		}
+	}
+	return 4;
+}
+
+int LG3641BH::writeInt(int num, int sec){
+	if(num<-999 || num>9999) return 3;
+	
+	int temp=num;	
+	
+	for(int j=0;j<50*sec;j++){
+		num=temp;
+		
+		if(num<0){
+			num=num*(-1);
+			writeNumber(11,1); //writes minus sign on first digit
+		}
+  
+		for(int i=4;i>0;i--){
+			writeNumber(num%10,i);
+			num=(num-num%10)/10;
 		}
 	}
 	return 4;

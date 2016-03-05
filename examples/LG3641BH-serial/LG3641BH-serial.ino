@@ -40,8 +40,14 @@ void setup() {
 
 
 void loop() {
+  
+  //writing float number
   if(Serial.available()>0){
-    screen.writeUFloat(Serial.parseFloat(),sec);  
+    screen.writeFloat(Serial.parseFloat(),sec);  
   }  
-
+  
+  //writing int number
+  /*if(Serial.available()>0){
+    screen.writeInt(Serial.parseInt(),sec);  
+  }*/
 }

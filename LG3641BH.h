@@ -17,7 +17,7 @@ class LG3641BH
 		int number(int num);
 		int writeNumber(int num, int pos);
 		int writeFloat(float num, int sec);
-		int writeInt(float num, int sec);
+		int writeInt(int num, int sec);
 	private:
 		int _pins[12];
 		int _state0;
